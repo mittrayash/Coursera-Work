@@ -404,14 +404,14 @@ ax.set_title("Exponential ($x^2$) vs. Linear ($x$) performance")
 
 # # Bar Charts
 
-# In[ ]:
+# In[52]:
 
 plt.figure()
 xvals = range(len(linear_data))
 plt.bar(xvals, linear_data, width = 0.3)
 
 
-# In[ ]:
+# In[53]:
 
 new_xvals = []
 
@@ -422,16 +422,17 @@ for item in xvals:
 plt.bar(new_xvals, exponential_data, width = 0.3 ,color='red')
 
 
-# In[ ]:
+# In[56]:
 
 from random import randint
 linear_err = [randint(0,15) for x in range(len(linear_data))] 
 
 # This will plot a new set of bars with errorbars using the list of random error values
+
 plt.bar(xvals, linear_data, width = 0.3, yerr=linear_err)
 
 
-# In[ ]:
+# In[61]:
 
 # stacked bar charts are also possible
 plt.figure()
@@ -440,7 +441,14 @@ plt.bar(xvals, linear_data, width = 0.3, color='b')
 plt.bar(xvals, exponential_data, width = 0.3, bottom=linear_data, color='r')
 
 
-# In[ ]:
+# In[71]:
+
+plt.figure()
+plt.bar(xvals, linear_data, width=0.3)
+plt.bar(xvals, exponential_data, bottom=linear_data, width=0.3, color="k")
+
+
+# In[72]:
 
 # or use barh for horizontal bar charts
 plt.figure()
