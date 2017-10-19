@@ -18,20 +18,20 @@ import matplotlib as mpl
 mpl.get_backend()
 
 
-# In[5]:
+# In[3]:
 
 import matplotlib.pyplot as plt
 get_ipython().magic('pinfo plt.plot')
 
 
-# In[7]:
+# In[4]:
 
 # because the default is the line style '-', 
 # nothing will be shown if we only pass in one point (3,2)
 plt.plot(3, 2)
 
 
-# In[15]:
+# In[22]:
 
 # we can pass in '.' to plt.plot to indicate that we want
 # the point (3,2) to be indicated with a marker '.'
@@ -40,7 +40,7 @@ plt.plot(3, 2, 's')
 
 # Let's see how to make a plot without using the scripting layer.
 
-# In[16]:
+# In[6]:
 
 # First let's set the backend without using mpl.use() from the scripting layer
 from matplotlib.backends.backend_agg import FigureCanvasAgg
@@ -66,12 +66,12 @@ canvas.print_png('test.png')
 
 # We can use html cell magic to display the image.
 
-# In[17]:
+# In[7]:
 
 get_ipython().run_cell_magic('html', '', "<img src='test.png' />")
 
 
-# In[21]:
+# In[8]:
 
 # create a new figure
 plt.figure()
@@ -86,7 +86,7 @@ ax = plt.gca()
 ax.axis([0,6,0,10])
 
 
-# In[22]:
+# In[9]:
 
 # create a new figure
 plt.figure()
@@ -99,7 +99,7 @@ plt.plot(2, 2, 'o')
 plt.plot(2.5, 2.5, 'o')
 
 
-# In[23]:
+# In[10]:
 
 # get current axes
 ax = plt.gca()
@@ -109,7 +109,7 @@ ax.get_children()
 
 # # Scatterplots
 
-# In[31]:
+# In[11]:
 
 import numpy as np
 
@@ -120,7 +120,7 @@ plt.figure()
 plt.scatter(x, y) # similar to plt.plot(x, y, '.'), but the underlying child objects in the axes are not Line2D
 
 
-# In[32]:
+# In[12]:
 
 import numpy as np
 
@@ -138,7 +138,7 @@ plt.figure()
 plt.scatter(x, y, s=100, c=colors)
 
 
-# In[38]:
+# In[13]:
 
 a = [1, 2, 3, 4]
 b = [4, 5, 6, 7]
@@ -146,7 +146,7 @@ for i, j in zip(a, b):
     print(i, j)
 
 
-# In[44]:
+# In[14]:
 
 # convert the two lists into a list of pairwise tuples
 zip_generator = zip([1,2,3,4,5], [6,7,8,9,10])
@@ -162,7 +162,7 @@ print(*zip_generator)
 # (1, 6) (2, 7) (3, 8) (4, 9) (5, 10)
 
 
-# In[41]:
+# In[15]:
 
 # use zip to convert 5 tuples with 2 elements each to 2 tuples with 5 elements each
 print(list(zip((1, 6), (2, 7), (3, 8), (4, 9), (5, 10))))
@@ -180,7 +180,7 @@ print(y)
 # (6, 7, 8, 9, 10)
 
 
-# In[ ]:
+# In[16]:
 
 plt.figure()
 # plot a data series 'Tall students' in red using the first two elements of x and y
@@ -189,7 +189,7 @@ plt.scatter(x[:2], y[:2], s=100, c='red', label='Tall students')
 plt.scatter(x[2:], y[2:], s=100, c='blue', label='Short students')
 
 
-# In[ ]:
+# In[23]:
 
 # add a label to the x axis
 plt.xlabel('The number of times the child kicked a ball')
@@ -199,37 +199,38 @@ plt.ylabel('The grade of the student')
 plt.title('Relationship between ball kicking and grades')
 
 
-# In[ ]:
+# In[24]:
 
 # add a legend (uses the labels from plt.scatter)
 plt.legend()
 
 
-# In[ ]:
+# In[25]:
 
 # add the legend to loc=4 (the lower right hand corner), also gets rid of the frame and adds a title
 plt.legend(loc=4, frameon=False, title='Legend')
 
 
-# In[ ]:
+# In[26]:
 
 # get children from current axes (the legend is the second to last item in this list)
 plt.gca().get_children()
 
 
-# In[ ]:
+# In[27]:
 
 # get the legend from the current axes
 legend = plt.gca().get_children()[-2]
+# -2 since legens is the second last element in the list
 
 
-# In[ ]:
+# In[28]:
 
 # you can use get_children to navigate through the child artists
-legend.get_children()[0].get_children()[1].get_children()[0].get_children()
+legend.get_children()[0].get_children()[1].get_children()[0].get_children()[0]
 
 
-# In[ ]:
+# In[29]:
 
 # import the artist class from matplotlib
 from matplotlib.artist import Artist
@@ -247,7 +248,7 @@ rec_gc(plt.legend())
 
 # # Line Plots
 
-# In[ ]:
+# In[30]:
 
 import numpy as np
 
@@ -257,15 +258,16 @@ exponential_data = linear_data**2
 plt.figure()
 # plot the linear data and the exponential data
 plt.plot(linear_data, '-o', exponential_data, '-o')
+exponential_data
 
 
-# In[ ]:
+# In[33]:
 
 # plot another series with a dashed red line
 plt.plot([22,44,55], '--r')
 
 
-# In[ ]:
+# In[34]:
 
 plt.xlabel('Some data')
 plt.ylabel('Some other data')
@@ -274,7 +276,12 @@ plt.title('A title')
 plt.legend(['Baseline', 'Competition', 'Us'])
 
 
-# In[ ]:
+# In[35]:
+
+range(len(linear_data))
+
+
+# In[36]:
 
 # fill the area between the linear data and exponential data
 plt.gca().fill_between(range(len(linear_data)), 
@@ -283,9 +290,61 @@ plt.gca().fill_between(range(len(linear_data)),
                        alpha=0.25)
 
 
+# In[37]:
+
+plt.figure()
+a = np.array([2, 4, 5, 6])
+b = np.array([3, 4, 5, 6])
+c = [3, 5, 6, 8]
+plt.plot(a, b, "-o", label="first")
+plt.plot(a, c, "--s", label="second")
+plt.gca().fill_between(a, b, c, alpha = 0.4)
+plt.legend()
+
+
+# In[46]:
+
+# Random Particle Exp.
+locs = np.random.random_sample((2,30)) - 0.5 
+print(locs)
+locs = np.cumsum(locs, axis=-1) 
+print(locs)
+x,y = locs 
+plt.plot(x,y) 
+
+
+# In[39]:
+
+plt.figure()
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.arange(0,10,0.1)
+
+# The lines to plot
+y1 = 4 - 2*x
+y2 = 3 - 0.5*x
+y3 = 1 -x
+
+# The upper edge of polygon (min of lines y1 & y2)
+y4 = np.minimum(y1, y2)
+
+# Set y-limit, making neg y-values not show in plot
+plt.ylim(0, 5)
+
+# Plotting of lines
+plt.plot(x, y1,
+         x, y2,
+         x, y3)
+
+# Filling between line y3 and line y4
+plt.fill_between(x, y3, y4, color='grey', alpha='0.5')
+plt.show()
+
+
 # Let's try working with dates!
 
-# In[ ]:
+# In[40]:
 
 plt.figure()
 
@@ -296,7 +355,7 @@ plt.plot(observation_dates, linear_data, '-o',  observation_dates, exponential_d
 
 # Let's try using pandas
 
-# In[ ]:
+# In[41]:
 
 import pandas as pd
 
@@ -306,7 +365,7 @@ observation_dates = map(pd.to_datetime, observation_dates) # trying to plot a ma
 plt.plot(observation_dates, linear_data, '-o',  observation_dates, exponential_data, '-o')
 
 
-# In[ ]:
+# In[47]:
 
 plt.figure()
 observation_dates = np.arange('2017-01-01', '2017-01-09', dtype='datetime64[D]')
@@ -314,7 +373,7 @@ observation_dates = list(map(pd.to_datetime, observation_dates)) # convert the m
 plt.plot(observation_dates, linear_data, '-o',  observation_dates, exponential_data, '-o')
 
 
-# In[ ]:
+# In[48]:
 
 x = plt.gca().xaxis
 
@@ -323,13 +382,13 @@ for item in x.get_ticklabels():
     item.set_rotation(45)
 
 
-# In[ ]:
+# In[49]:
 
 # adjust the subplot so the text doesn't run off the image
-plt.subplots_adjust(bottom=0.25)
+plt.subplots_adjust(bottom=0.2)
 
 
-# In[ ]:
+# In[50]:
 
 ax = plt.gca()
 ax.set_xlabel('Date')
@@ -337,7 +396,7 @@ ax.set_ylabel('Units')
 ax.set_title('Exponential vs. Linear performance')
 
 
-# In[ ]:
+# In[51]:
 
 # you can add mathematical expressions in any text element
 ax.set_title("Exponential ($x^2$) vs. Linear ($x$) performance")
