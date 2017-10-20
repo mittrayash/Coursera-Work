@@ -27,12 +27,12 @@
 # 
 # The data you have been given is near **New Delhi, National Capital Territory of Delhi, India**, and the stations the data comes from are shown on the map below.
 
-# In[10]:
+# In[1]:
 
 get_ipython().magic('matplotlib notebook')
 
 
-# In[11]:
+# In[2]:
 
 import matplotlib.pyplot as plt
 import mplleaflet
@@ -56,7 +56,7 @@ def leaflet_plot_stations(binsize, hashid):
 leaflet_plot_stations(25,'391a2922ad597ba080f4b99dea6d62842562d64845ef5df1a384561e')
 
 
-# In[330]:
+# In[3]:
 
 df = pd.read_csv('data/C2A2_data/BinnedCsvs_d100/4e86d2106d0566c6ad9843d882e72791333b08be3d647dcae4f4b110.csv')
 df.sort_values("Date" ,inplace=True)
@@ -72,7 +72,7 @@ max_df15.set_index("Date", inplace=True)
 max_df15 = max_df15["Data_Value"]
 
 
-# In[331]:
+# In[4]:
 
 import numpy as np
 min_df = min_df.groupby(["Date"])["Data_Value"].min()
@@ -83,7 +83,7 @@ max_df = max_df.groupby(["Date"])["Data_Value"].max()
 #xx = min_df.apply(lambda x: x['Date'][:4] == "2015")
 
 
-# In[333]:
+# In[5]:
 
 time_range = pd.date_range('2005-01-01', '2015-12-31')
 min_df.index = pd.DatetimeIndex(min_df.index)
@@ -92,7 +92,7 @@ min_df = min_df.reindex(time_range, method='ffill')
 max_df = max_df.reindex(time_range, method='ffill')
 
 
-# In[334]:
+# In[6]:
 
 for i in min_df.index:
     
@@ -106,41 +106,58 @@ for i in max_df.index:
         max_df.drop(i, inplace=True)
 
 
-# In[335]:
+# In[7]:
 
 i1 = min_df.index.tolist()
 i1 = list(map(pd.to_datetime, i1))
 
 
-# In[336]:
+# In[8]:
 
 print(len(min_df), len(max_df))
 
 
-# In[337]:
+# In[9]:
 
 i2 = max_df.index.tolist()
 i2 = list(map(pd.to_datetime, i2))
 
 
-# In[338]:
+# In[10]:
 
 print(len(i1), len(i2))
 
 
-# In[339]:
+# In[11]:
 
 i1_15 = min_df15.index.tolist()
 i1_15 = list(map(pd.to_datetime, i1_15))
 
 
-# In[340]:
+# In[12]:
 
 i2_15 = max_df15.index.tolist()
 i2_15 = list(map(pd.to_datetime, i2_15))
 
 
-# In[341]:
+# In[21]:
+
+min_df.index.month[0], min_df.index.day[0]
+
+
+# In[38]:
+
+# Now to check conditional on 2015 data, I'll collate the Record highs and Record lows from 2005 - 2014 in two series
+month_day = set(str(i) + "-" + str(j) for i, j in zip(min_df.index.month, min_df.index.day))
+#decade_high = 
+
+month_day = list(month_day)
+for i, j in zip(min_df.index.month, min_df.index.day):
+    #print(str(i) + "-" + str(j))
+    
+
+
+# In[13]:
 
 plt.figure()
 plt.plot(i1, min_df, "-", c='b', label="Record Low")
