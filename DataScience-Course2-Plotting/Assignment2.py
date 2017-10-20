@@ -27,12 +27,12 @@
 # 
 # The data you have been given is near **New Delhi, National Capital Territory of Delhi, India**, and the stations the data comes from are shown on the map below.
 
-# In[1]:
+# In[409]:
 
 get_ipython().magic('matplotlib notebook')
 
 
-# In[2]:
+# In[410]:
 
 import matplotlib.pyplot as plt
 import mplleaflet
@@ -56,7 +56,7 @@ def leaflet_plot_stations(binsize, hashid):
 leaflet_plot_stations(25,'391a2922ad597ba080f4b99dea6d62842562d64845ef5df1a384561e')
 
 
-# In[3]:
+# In[411]:
 
 df = pd.read_csv('data/C2A2_data/BinnedCsvs_d100/4e86d2106d0566c6ad9843d882e72791333b08be3d647dcae4f4b110.csv')
 df.sort_values("Date" ,inplace=True)
@@ -72,7 +72,7 @@ max_df15.set_index("Date", inplace=True)
 max_df15 = max_df15["Data_Value"]
 
 
-# In[4]:
+# In[412]:
 
 import numpy as np
 min_df = min_df.groupby(["Date"])["Data_Value"].min()
@@ -83,7 +83,12 @@ max_df = max_df.groupby(["Date"])["Data_Value"].max()
 #xx = min_df.apply(lambda x: x['Date'][:4] == "2015")
 
 
-# In[5]:
+# In[413]:
+
+max_df15
+
+
+# In[414]:
 
 time_range = pd.date_range('2005-01-01', '2015-12-31')
 min_df.index = pd.DatetimeIndex(min_df.index)
@@ -92,7 +97,7 @@ min_df = min_df.reindex(time_range, method='ffill')
 max_df = max_df.reindex(time_range, method='ffill')
 
 
-# In[6]:
+# In[415]:
 
 for i in min_df.index:
     
@@ -106,46 +111,46 @@ for i in max_df.index:
         max_df.drop(i, inplace=True)
 
 
-# In[7]:
+# In[416]:
 
 i1 = min_df.index.tolist()
 i1 = list(map(pd.to_datetime, i1))
 
 
-# In[8]:
+# In[417]:
 
 print(len(min_df), len(max_df))
 
 
-# In[9]:
+# In[418]:
 
 i2 = max_df.index.tolist()
 i2 = list(map(pd.to_datetime, i2))
 
 
-# In[10]:
+# In[419]:
 
 print(len(i1), len(i2))
 
 
-# In[11]:
+# In[420]:
 
 i1_15 = min_df15.index.tolist()
 i1_15 = list(map(pd.to_datetime, i1_15))
 
 
-# In[12]:
+# In[421]:
 
 i2_15 = max_df15.index.tolist()
 i2_15 = list(map(pd.to_datetime, i2_15))
 
 
-# In[21]:
+# In[422]:
 
 min_df.index.month[0], min_df.index.day[0]
 
 
-# In[146]:
+# In[423]:
 
 # Now to check conditional on 2015 data, I'll collate the Record highs and Record lows from 2005 - 2014 in two series
 month_day = set(str(i) + "-" + str(j) for i, j in zip(min_df.index.month, min_df.index.day))
@@ -177,51 +182,98 @@ for element in month_day:
 decade_low
 
 
-# In[147]:
+# In[424]:
 
 decade_high = pd.DataFrame({"Date": pd.Series(decade_high).index, "Value": pd.Series(decade_high).values})
 decade_low = pd.DataFrame({"Date": pd.Series(decade_low).index, "Value": pd.Series(decade_low).values})
 
 
-# In[148]:
+# In[425]:
 
 decade_high["Date"] = pd.to_datetime(decade_high["Date"])
 decade_low["Date"] = pd.to_datetime(decade_low["Date"])
 
 
-# In[149]:
+# In[426]:
 
 decade_high.sort_values("Date", inplace=True)
 decade_low.sort_values("Date", inplace=True)
 
 
-# In[150]:
+# In[427]:
 
 decade_low
 
 
-# In[151]:
+# In[428]:
 
 decade_high.set_index("Date", inplace=True)
 
 decade_low.set_index("Date", inplace=True)
 
 
-# In[152]:
+# In[429]:
 
 decade_low
 
 
-# In[88]:
+# In[430]:
+
+# Now, checking for the 2015 conditional in the next few cells
+# We will compare min_df15 with decade_low and max_df15 with decade_high 
+# So first, we need them to have the same index vals and the same length
+# Let's do that now
+min_df15#.to_frame()
+
+
+# In[431]:
+
+min_df15 = min_df15.groupby(min_df15.index).min()
+max_df15 = max_df15.groupby(max_df15.index).max()
+#Now, the lengths are equal. Both equal 365 now, that is the number of days in 2015
+#overlay_low = [min_df15[min_df15[i] < decade_low[i]] for i in range(len(min_df15))]
+
+
+# In[432]:
+
+#decade_low = decade_low.reset_index
+#type(decade_low)#[1]
+
+decade_low = decade_low.T.iloc[0] # Converting DataFrame to Series to make it eligible for comparing
+decade_high = decade_high.T.iloc[0] # Converting DataFrame to Series to make it eligible for comparing
+#[print(min_df15[i] , decade_low[i]) for i in range(len(min_df15))]
+#broken_min = np.where(temp_min_15['Data_Value'] < temp_min['Data_Value'])[0]
+
+
+# In[433]:
+
+#overlay_low = [(min_df15[i] < decade_low[i]) for i in range(len(min_df15))]
+overlay_low = np.where(min_df15 <= decade_low)
+overlay_high = np.where(max_df15 >= decade_high)
+
+overlay_high = max_df15.iloc[overlay_high]
+overlay_low = min_df15.iloc[overlaw_low]
+overlay_high
+
+
+# In[435]:
 
 plt.figure()
 plt.plot(i1, min_df, "-", c='b', label="Record Low")
 plt.plot(i2, max_df, "-", c='r', label="Record High")
 #plt.scatter(i1_15, min_df15, c="k", label="2015low")
+plt.scatter(overlay_high.index, overlay_high, c="k", label="Decade Record Breaker [2015] (High)", s=10)
+plt.scatter(overlay_low.index, overlay_low, c="g", label="Decade Record Breaker [2015] (Low)", s=10)
 plt.gca().fill_between(i1, min_df, max_df, facecolor='yellow', alpha=0.5)
 plt.gca().set_ylim([-150, 650])
 plt.legend()
-
+plt.xlabel('Day of the Year')
+plt.ylabel('Temperature (Tenths of Degrees Celsius)')
+plt.title('Temperature Summary Plot near New Delhi, India')
+plt.xticks(rotation = '45')
+plt.subplots_adjust(bottom=0.2)
+plt.gca().spines['top'].set_visible(False)
+plt.gca().spines['right'].set_visible(False)
 plt.show()
 
 
