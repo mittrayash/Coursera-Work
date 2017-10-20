@@ -145,19 +145,74 @@ i2_15 = list(map(pd.to_datetime, i2_15))
 min_df.index.month[0], min_df.index.day[0]
 
 
-# In[38]:
+# In[146]:
 
 # Now to check conditional on 2015 data, I'll collate the Record highs and Record lows from 2005 - 2014 in two series
 month_day = set(str(i) + "-" + str(j) for i, j in zip(min_df.index.month, min_df.index.day))
-#decade_high = 
-
 month_day = list(month_day)
-for i, j in zip(min_df.index.month, min_df.index.day):
-    #print(str(i) + "-" + str(j))
+decade_high = {}
+decade_low = {}
+
+for element in month_day:
+    elem = "2015-" + element
+    greatest = 0
+    for i, j, v in zip(max_df.index.month, max_df.index.day, max_df):
+        if element == str(i) + "-" + str(j):
+            if v > greatest:
+                greatest = v
+            
+    decade_high[elem] = greatest
     
 
+for element in month_day:
+    elem = "2015-" + element
+    lowest = 99999
+    for i, j, v in zip(min_df.index.month, min_df.index.day, min_df):
+        if element == str(i) + "-" + str(j):
+            if v < lowest:
+                lowest = v
+            
+    decade_low[elem] = lowest
+    
+decade_low
 
-# In[13]:
+
+# In[147]:
+
+decade_high = pd.DataFrame({"Date": pd.Series(decade_high).index, "Value": pd.Series(decade_high).values})
+decade_low = pd.DataFrame({"Date": pd.Series(decade_low).index, "Value": pd.Series(decade_low).values})
+
+
+# In[148]:
+
+decade_high["Date"] = pd.to_datetime(decade_high["Date"])
+decade_low["Date"] = pd.to_datetime(decade_low["Date"])
+
+
+# In[149]:
+
+decade_high.sort_values("Date", inplace=True)
+decade_low.sort_values("Date", inplace=True)
+
+
+# In[150]:
+
+decade_low
+
+
+# In[151]:
+
+decade_high.set_index("Date", inplace=True)
+
+decade_low.set_index("Date", inplace=True)
+
+
+# In[152]:
+
+decade_low
+
+
+# In[88]:
 
 plt.figure()
 plt.plot(i1, min_df, "-", c='b', label="Record Low")
