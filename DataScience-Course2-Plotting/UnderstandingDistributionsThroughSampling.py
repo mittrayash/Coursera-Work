@@ -17,7 +17,14 @@
 # * Take a look at the histograms below to get an idea of what the random variables look like, as well as their positioning with respect to one another. This is just a guide, so be creative in how you lay things out!
 # * Try to keep the length of your animation reasonable (roughly between 10 and 30 seconds).
 
-# In[ ]:
+# In[24]:
+
+get_ipython().magic('pinfo np.random.normal')
+get_ipython().magic('pinfo np.random.gamma')
+get_ipython().magic('pinfo np.random.exponential')
+
+
+# In[21]:
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -42,6 +49,39 @@ plt.text(x1.mean()-1.5, 0.5, 'x1\nNormal')
 plt.text(x2.mean()-1.5, 0.5, 'x2\nGamma')
 plt.text(x3.mean()-1.5, 0.5, 'x3\nExponential')
 plt.text(x4.mean()-1.5, 0.5, 'x4\nUniform')
+
+
+# In[70]:
+
+get_ipython().magic('pinfo plt.bar')
+
+
+# In[86]:
+
+fig, axs = plt.subplots(2, 2, sharey=True)
+
+
+for ax in axs.reshape(-1):
+    ax.spines['right'].set_color('none')
+    ax.spines["top"].set_color("none")
+
+ax1 = axs[0][0]
+ax2 = axs[0][1]
+ax3 = axs[1][0]
+ax4 = axs[1][1]
+
+x1_sample = x1[:1000]
+x2_sample = x2[:1000]
+x3_sample = x3[:1000]-7
+x4_sample = x4[:1000]
+
+ax1.hist(x1_sample, normed=True, alpha=0.5, bins=20)
+ax2.hist(x2_sample, normed=True, color="g", alpha=0.5, bins=20)
+ax3.hist(x3_sample, normed=True, color="r", alpha=0.5, bins=20)
+ax4.hist(x4_sample, normed=True, color="y", alpha=0.5, bins=20)
+
+
+plt.tight_layout()
 
 
 # In[ ]:
