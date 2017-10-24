@@ -324,7 +324,6 @@ x = np.random.randn(n)
 # create the function that will do the plotting, where curr is the current frame
 def update(curr):
     # check if animation is at the last frame, and if so, stop the animation a
-    print(curr)
     if curr == n: 
         a.event_source.stop()
     plt.cla()
