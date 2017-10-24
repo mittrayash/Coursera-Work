@@ -85,14 +85,17 @@ plt.tight_layout()
 
 
 
-# In[85]:
+# In[116]:
 
 import matplotlib.animation as animation
 n = 100
 def update(curr):
+    global xxx
     if(curr == n):
         a.event_source.stop()
-    plt.cla()
+    for ax in axs.reshape(-1):
+        ax.clear()
+    #plt.clear()
     ax1.hist(x1_sample[100:100+10*curr], normed=True, color='b', alpha=0.5, bins=10)
     ax2.hist(x2_sample[100:100+10*curr], normed=True, color="g", alpha=0.5, bins=10)
     ax3.hist(x3_sample[100:100+10*curr], normed=True, color="r", alpha=0.5, bins=10)
@@ -113,9 +116,8 @@ def update(curr):
     plt.tight_layout()
     #ax1.figure(figsize=(9,6))
     
-    #ax1.annotate(0.01*np.median(ax1.get_xlim())/2, 13*np.mean(ax1.get_ylim())/7, "n = {}".format(10*curr))
-    
-    
+
+    ax1.text((0.01*np.median(ax1.get_xlim()))/2, 13*np.mean(ax1.get_ylim())/7, "n = {}".format(10*curr), color="r")
 ##########################################################
 fig, axs = plt.subplots(2, 2, sharey=True)
 
@@ -124,8 +126,10 @@ ax2 = axs[0][1]
 ax3 = axs[1][0]
 ax4 = axs[1][1]
 
+#plt.suptitle(xxx)
 
-a = animation.FuncAnimation(fig, update, interval=10)
+
+a = animation.FuncAnimation(fig, update, interval=100)
 
 
 # In[53]:
