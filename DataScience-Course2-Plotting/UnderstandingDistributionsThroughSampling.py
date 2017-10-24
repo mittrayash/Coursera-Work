@@ -85,22 +85,21 @@ plt.tight_layout()
 
 
 
-# In[116]:
+# In[121]:
 
 import matplotlib.animation as animation
 n = 100
 def update(curr):
-    global xxx
     if(curr == n):
         a.event_source.stop()
+    
     for ax in axs.reshape(-1):
         ax.clear()
-    #plt.clear()
-    ax1.hist(x1_sample[100:100+10*curr], normed=True, color='b', alpha=0.5, bins=10)
-    ax2.hist(x2_sample[100:100+10*curr], normed=True, color="g", alpha=0.5, bins=10)
-    ax3.hist(x3_sample[100:100+10*curr], normed=True, color="r", alpha=0.5, bins=10)
-    ax4.hist(x4_sample[100:100+10*curr], normed=True, color="y", alpha=0.5, bins=10)
-    fig.gca().set_title('Sampling the Normal Distribution')
+        
+    ax1.hist(x1_sample[100:100+10*curr], normed=True, color='b', alpha=0.5, bins=20)
+    ax2.hist(x2_sample[100:100+10*curr], normed=True, color="g", alpha=0.5, bins=20)
+    ax3.hist(x3_sample[100:100+10*curr], normed=True, color="r", alpha=0.5, bins=20)
+    ax4.hist(x4_sample[100:100+10*curr], normed=True, color="y", alpha=0.5, bins=20)
     
     for ax in axs.reshape(-1):
         ax.spines['right'].set_color('none')
@@ -108,16 +107,13 @@ def update(curr):
         ax.set_ylabel('Frequency')
         ax.set_xlabel('Value')
         
-    #ax1.set_title('n = {}'.format(ax1.get_xlim()))
     ax1.set_title("Normal Distribution")
     ax2.set_title("Gamma Distribution")
     ax3.set_title("Exponential Distribution")
     ax4.set_title("Uniform Distribution")
     plt.tight_layout()
-    #ax1.figure(figsize=(9,6))
-    
 
-    ax1.text((0.01*np.median(ax1.get_xlim()))/2, 13*np.mean(ax1.get_ylim())/7, "n = {}".format(10*curr), color="r")
+    ax1.text((0.01*np.median(ax1.get_xlim()))/2, 15*np.mean(ax1.get_ylim())/7, "n = {}/1000".format(10*curr), color="r")
 ##########################################################
 fig, axs = plt.subplots(2, 2, sharey=True)
 
@@ -125,8 +121,6 @@ ax1 = axs[0][0]
 ax2 = axs[0][1]
 ax3 = axs[1][0]
 ax4 = axs[1][1]
-
-#plt.suptitle(xxx)
 
 
 a = animation.FuncAnimation(fig, update, interval=100)
