@@ -66,13 +66,41 @@ df = pd.DataFrame([np.random.normal(32000,200000,3650),
 df
 
 
-# In[40]:
+# In[44]:
+
+np.mean(df, axis=1)
 
 
-ind = df.index.values.tolist()
+# In[85]:
+
+def plotter(yval, ax, x, y, width=0.5, bottom=0):
+    X = [[.6, .6], [.7, .7]]
+    ind = df.index.values.tolist()
+    for left, top in zip(x, y):
+        right = left + width
+        ax.imshow(X, interpolation='bicubic', cmap=plt.cm.RdYlBu,
+                  extent=(left, right, bottom, top), alpha=1)
+    #plt.figure()
+    #plt.bar(x, y, width=0.5)
+    #plt.contourf(range(1991, 1992), 20000, 100)
+
+
+# In[86]:
+
 years = [1992, 1993, 1994, 1995]
-plt.figure()
-plt.bar(1992, np.mean(df.loc[1992]), width=0.5)
+vals =  np.mean(df, axis=1)
+vals = [i for i in vals.values]
+
+#ax = plt.figure()
+xmin, xmax = xlim = 1991, 1996  
+ymin, ymax = ylim = 0, 50000
+fig = plt.figure()
+ax = fig.add_subplot(111, xlim=xlim, ylim=ylim,autoscale_on=False)
+
+plotter(20000, ax, years, vals, width=0.7)
+#yval=20000 is not being used yet. Yet to add that functionality
+ax.set_aspect('auto')
+plt.show()
 
 
 # In[ ]:
