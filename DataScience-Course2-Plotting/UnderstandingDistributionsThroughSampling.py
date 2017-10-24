@@ -17,14 +17,14 @@
 # * Take a look at the histograms below to get an idea of what the random variables look like, as well as their positioning with respect to one another. This is just a guide, so be creative in how you lay things out!
 # * Try to keep the length of your animation reasonable (roughly between 10 and 30 seconds).
 
-# In[24]:
+# In[1]:
 
 get_ipython().magic('pinfo np.random.normal')
 get_ipython().magic('pinfo np.random.gamma')
 get_ipython().magic('pinfo np.random.exponential')
 
 
-# In[21]:
+# In[2]:
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -51,12 +51,12 @@ plt.text(x3.mean()-1.5, 0.5, 'x3\nExponential')
 plt.text(x4.mean()-1.5, 0.5, 'x4\nUniform')
 
 
-# In[70]:
+# In[3]:
 
 get_ipython().magic('pinfo plt.bar')
 
 
-# In[86]:
+# In[13]:
 
 fig, axs = plt.subplots(2, 2, sharey=True)
 
@@ -80,8 +80,41 @@ ax2.hist(x2_sample, normed=True, color="g", alpha=0.5, bins=20)
 ax3.hist(x3_sample, normed=True, color="r", alpha=0.5, bins=20)
 ax4.hist(x4_sample, normed=True, color="y", alpha=0.5, bins=20)
 
-
 plt.tight_layout()
+
+
+
+
+# In[36]:
+
+import matplotlib.animation as animation
+n = 100
+def update(curr):
+    if(curr == n):
+        a.event_source.stop()
+    plt.cla()
+    ax1.hist(x1_sample[100:100+10*curr], color='b', alpha=0.5, bins=20)
+    ax2.hist(x2_sample[100:100+10*curr], color="g", alpha=0.5, bins=20)
+    ax3.hist(x3_sample[100:100+10*curr], color="r", alpha=0.5, bins=20)
+    ax4.hist(x4_sample[100:100+10*curr], color="y", alpha=0.5, bins=20)
+    fig.gca().set_title('Sampling the Normal Distribution')
+    
+    for ax in axs.reshape(-1):
+        ax.spines['right'].set_color('none')
+        ax.spines["top"].set_color("none")
+        ax.set_ylabel('Frequency')
+        
+    ax.set_xlabel('Value')
+    
+    ax1.annotate('n = {}'.format(curr), [0,10])
+fig, axs = plt.subplots(2, 2, sharey=True)
+
+ax1 = axs[0][0]
+ax2 = axs[0][1]
+ax3 = axs[1][0]
+ax4 = axs[1][1]
+
+a = animation.FuncAnimation(fig, update, interval=1)
 
 
 # In[ ]:
