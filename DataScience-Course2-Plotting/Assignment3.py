@@ -43,12 +43,12 @@
 # 
 # *Note: The data given for this assignment is not the same as the data used in the article and as a result the visualizations may look a little different.*
 
-# In[37]:
+# In[3]:
 
 get_ipython().magic('matplotlib notebook')
 
 
-# In[38]:
+# In[4]:
 
 # Use the following data for this assignment:
 
@@ -66,26 +66,25 @@ df = pd.DataFrame([np.random.normal(32000,200000,3650),
 df
 
 
-# In[44]:
+# In[5]:
 
 np.mean(df, axis=1)
 
 
-# In[85]:
+# In[16]:
 
-def plotter(yval, ax, x, y, width=0.5, bottom=0):
+def plotter(yval, ax, x, y, width=0.7, bottom=0):
     X = [[.6, .6], [.7, .7]]
     ind = df.index.values.tolist()
     for left, top in zip(x, y):
         right = left + width
-        ax.imshow(X, interpolation='bicubic', cmap=plt.cm.RdYlBu,
-                  extent=(left, right, bottom, top), alpha=1)
+        ax.imshow(X, interpolation='bicubic', cmap=plt.cm.RdYlBu,extent=(left- 0.35, right-0.35 , bottom, top), alpha=1)
     #plt.figure()
     #plt.bar(x, y, width=0.5)
     #plt.contourf(range(1991, 1992), 20000, 100)
 
 
-# In[86]:
+# In[17]:
 
 years = [1992, 1993, 1994, 1995]
 vals =  np.mean(df, axis=1)
