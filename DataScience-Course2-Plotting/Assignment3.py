@@ -66,40 +66,76 @@ df = pd.DataFrame([np.random.normal(32000,200000,3650),
 df
 
 
-# In[5]:
+# In[172]:
 
 np.mean(df, axis=1)
 
 
-# In[16]:
+# In[173]:
 
-def plotter(yval, ax, x, y, width=0.7, bottom=0):
-    X = [[.6, .6], [.7, .7]]
-    ind = df.index.values.tolist()
-    for left, top in zip(x, y):
-        right = left + width
-        ax.imshow(X, interpolation='bicubic', cmap=plt.cm.RdYlBu,extent=(left- 0.35, right-0.35 , bottom, top), alpha=1)
-    #plt.figure()
-    #plt.bar(x, y, width=0.5)
-    #plt.contourf(range(1991, 1992), 20000, 100)
+def plotter(yval, ax, x, y, yerr, width=0.7):
+    
+    cmap = plt.cm.RdYlBu
+    
+    colors = cm.hsv( np.array(y) / float(max(y)))
+    plt.axhline(y=yval, color='c')
+    
+    cpick = cm.ScalarMappable(cmap=cmap)
+    cpick.set_array([])
+    
+    
+    percentages = []
+    bars = plt.bar(x, y, width=width, yerr=yerr, color = cpick.to_rgba(percentages))
+    
+    for bar, yerr_ in zip(bars, yerr):
+        low = bar.get_height() - yerr_
+        high = bar.get_height() + yerr_
+        print(low, high)
+    
+    
+        percentage = (high-yval)/(high-low)
+        if percentage>1: percentage = 1
+        if percentage<0: percentage=0
+        percentages.append(percentage)
+    
+    
+    for bar, yerr_ in zip(bars, yerr):
+        high = bar.get_height() - yerr
+    
+    bars = plt.bar(x, y, yerr = yerr, color = cpick.to_rgba(percentages))
+    plt.colorbar(cpick, orientation='horizontal')
+    
 
 
-# In[17]:
+# In[174]:
 
+from scipy import stats
 years = [1992, 1993, 1994, 1995]
 vals =  np.mean(df, axis=1)
 vals = [i for i in vals.values]
 
-#ax = plt.figure()
 xmin, xmax = xlim = 1991, 1996  
 ymin, ymax = ylim = 0, 50000
 fig = plt.figure()
-ax = fig.add_subplot(111, xlim=xlim, ylim=ylim,autoscale_on=False)
+ax = fig.gca()
 
-plotter(20000, ax, years, vals, width=0.7)
-#yval=20000 is not being used yet. Yet to add that functionality
+n= df.shape[1]
+yerr = std / np.sqrt(n) * stats.t.ppf(1-0.05/2, n - 1)
+
+plotter(vals[2], ax, years, vals, yerr, width=0.7)
+
 ax.set_aspect('auto')
 plt.show()
+
+
+# In[ ]:
+
+
+
+
+# In[ ]:
+
+
 
 
 # In[ ]:
