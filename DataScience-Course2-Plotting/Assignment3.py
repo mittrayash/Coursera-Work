@@ -43,12 +43,12 @@
 # 
 # *Note: The data given for this assignment is not the same as the data used in the article and as a result the visualizations may look a little different.*
 
-# In[3]:
+# In[7]:
 
 get_ipython().magic('matplotlib notebook')
 
 
-# In[4]:
+# In[8]:
 
 # Use the following data for this assignment:
 
@@ -66,18 +66,19 @@ df = pd.DataFrame([np.random.normal(32000,200000,3650),
 df
 
 
-# In[172]:
+# In[17]:
 
+from matplotlib import cm as cm
 np.mean(df, axis=1)
 
 
-# In[173]:
+# In[23]:
 
 def plotter(yval, ax, x, y, yerr, width=0.7):
     
     cmap = plt.cm.RdYlBu
     
-    colors = cm.hsv( np.array(y) / float(max(y)))
+    
     plt.axhline(y=yval, color='c')
     
     cpick = cm.ScalarMappable(cmap=cmap)
@@ -107,7 +108,7 @@ def plotter(yval, ax, x, y, yerr, width=0.7):
     
 
 
-# In[174]:
+# In[24]:
 
 from scipy import stats
 years = [1992, 1993, 1994, 1995]
@@ -118,7 +119,7 @@ xmin, xmax = xlim = 1991, 1996
 ymin, ymax = ylim = 0, 50000
 fig = plt.figure()
 ax = fig.gca()
-
+std = df.std(axis=1)
 n= df.shape[1]
 yerr = std / np.sqrt(n) * stats.t.ppf(1-0.05/2, n - 1)
 
