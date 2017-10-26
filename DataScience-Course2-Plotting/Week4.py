@@ -97,23 +97,23 @@ df.plot.kde();
 
 # [Iris flower data set](https://en.wikipedia.org/wiki/Iris_flower_data_set)
 
-# In[16]:
+# In[12]:
 
 iris = pd.read_csv('iris.csv')
 iris.head()
 
 
-# In[17]:
+# In[13]:
 
 iris.describe()
 
 
-# In[18]:
+# In[58]:
 
 pd.tools.plotting.scatter_matrix(iris);
 
 
-# In[19]:
+# In[15]:
 
 plt.figure()
 pd.tools.plotting.parallel_coordinates(iris, 'Name');
@@ -124,7 +124,7 @@ pd.tools.plotting.parallel_coordinates(iris, 'Name');
 
 # # Seaborn
 
-# In[ ]:
+# In[17]:
 
 import numpy as np
 import pandas as pd
@@ -134,7 +134,7 @@ import seaborn as sns
 get_ipython().magic('matplotlib notebook')
 
 
-# In[ ]:
+# In[18]:
 
 np.random.seed(1234)
 
@@ -142,7 +142,7 @@ v1 = pd.Series(np.random.normal(0,10,1000), name='v1')
 v2 = pd.Series(2*v1 + np.random.normal(60,15,1000), name='v2')
 
 
-# In[ ]:
+# In[34]:
 
 plt.figure()
 plt.hist(v1, alpha=0.7, bins=np.arange(-50,150,5), label='v1');
@@ -150,7 +150,14 @@ plt.hist(v2, alpha=0.7, bins=np.arange(-50,150,5), label='v2');
 plt.legend();
 
 
-# In[ ]:
+# In[25]:
+
+a = np.array([1, 2, 3])
+c = np.array([2, 3, 4])
+np.concatenate((a, c))
+
+
+# In[37]:
 
 # plot a kernel density estimation over a stacked barchart
 plt.figure()
@@ -159,30 +166,30 @@ v3 = np.concatenate((v1,v2))
 sns.kdeplot(v3);
 
 
-# In[ ]:
+# In[38]:
 
 plt.figure()
 # we can pass keyword arguments for each individual component of the plot
 sns.distplot(v3, hist_kws={'color': 'Teal'}, kde_kws={'color': 'Navy'});
 
 
-# In[ ]:
+# In[39]:
 
 sns.jointplot(v1, v2, alpha=0.4);
 
 
-# In[ ]:
+# In[41]:
 
 grid = sns.jointplot(v1, v2, alpha=0.4);
 grid.ax_joint.set_aspect('equal')
 
 
-# In[ ]:
+# In[42]:
 
 sns.jointplot(v1, v2, kind='hex');
 
 
-# In[ ]:
+# In[54]:
 
 # set the seaborn style for all the following plots
 sns.set_style('white')
@@ -190,22 +197,27 @@ sns.set_style('white')
 sns.jointplot(v1, v2, kind='kde', space=0);
 
 
-# In[ ]:
+# In[55]:
 
 iris = pd.read_csv('iris.csv')
 iris.head()
 
 
-# In[ ]:
+# In[56]:
 
 sns.pairplot(iris, hue='Name', diag_kind='kde', size=2);
 
 
-# In[ ]:
+# In[59]:
 
 plt.figure(figsize=(8,6))
 plt.subplot(121)
 sns.swarmplot('Name', 'PetalLength', data=iris);
 plt.subplot(122)
 sns.violinplot('Name', 'PetalLength', data=iris);
+
+
+# In[ ]:
+
+
 
