@@ -152,7 +152,7 @@ def answer_four():
 # 
 # *This function should return a * `sklearn.neighbors.classification.KNeighborsClassifier`.
 
-# In[71]:
+# In[100]:
 
 from sklearn.neighbors import KNeighborsClassifier
 
@@ -160,7 +160,7 @@ def answer_five():
     X_train, X_test, y_train, y_test = answer_four()
     
     knn = KNeighborsClassifier(n_neighbors=1)
-    #knn.fit(X_train, Y_train)
+    knn = knn.fit(X_train, y_train)
     
     return knn
 answer_five()
@@ -169,19 +169,22 @@ answer_five()
 # ### Question 6
 # Using your knn classifier, predict the class label using the mean value for each feature.
 # 
-# Hint: You can use `cancerdf.mean()[:-1].values.reshape(1, -1)` which gets the mean value for each feature, ignores the target column, and reshapes the data from 1 dimension to 2 (necessary for the precict method of KNeighborsClassifier).
+# Hint: You can use `cancerdf.mean()[:-1].values.reshape(1, -1)` which gets the mean value for each feature, ignores the target column, and reshapes the data (necessary for the predict method of KNeighborsClassifier).
 # 
 # *This function should return a numpy array either `array([ 0.])` or `array([ 1.])`*
 
-# In[ ]:
+# In[101]:
 
 def answer_six():
     cancerdf = answer_one()
-    means = cancerdf.mean()[:-1].values.reshape(1, -1)
+    knn = answer_five()
+    means = cancerdf.mean()[:-1].values.reshape(1, -1) # Converts from shape (30,) to shape (30, 1)
+    # In programming, we can leave the column numbers empty which the comp. can calculate from the total elements / no. of rows
+    # Here, we are doing the same. Also try to keep consistency. (x,) is always worse than (x, 1). Try using the latter.
+    # Works everywhere
     
-    # Your code here
-    
-    return # Return your answer
+    return knn.predict(means)
+answer_six()
 
 
 # ### Question 7
