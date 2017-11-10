@@ -152,16 +152,18 @@ def answer_four():
 # 
 # *This function should return a * `sklearn.neighbors.classification.KNeighborsClassifier`.
 
-# In[ ]:
+# In[71]:
 
 from sklearn.neighbors import KNeighborsClassifier
 
 def answer_five():
     X_train, X_test, y_train, y_test = answer_four()
     
-    # Your code here
+    knn = KNeighborsClassifier(n_neighbors=1)
+    #knn.fit(X_train, Y_train)
     
-    return # Return your answer
+    return knn
+answer_five()
 
 
 # ### Question 6
