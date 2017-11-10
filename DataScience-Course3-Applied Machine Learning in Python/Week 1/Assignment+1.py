@@ -136,13 +136,13 @@ def answer_three():
 # * `y_train` *has shape* `(426,)`
 # * `y_test` *has shape* `(143,)`
 
-# In[66]:
+# In[137]:
 
 from sklearn.model_selection import train_test_split
 
 def answer_four():
     X, y = answer_three()
-    X_train, X_test, y_train, y_test = train_test_split(X, y)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
     
     return X_train, X_test, y_train, y_test
 
@@ -152,7 +152,7 @@ def answer_four():
 # 
 # *This function should return a * `sklearn.neighbors.classification.KNeighborsClassifier`.
 
-# In[100]:
+# In[138]:
 
 from sklearn.neighbors import KNeighborsClassifier
 
@@ -173,7 +173,7 @@ answer_five()
 # 
 # *This function should return a numpy array either `array([ 0.])` or `array([ 1.])`*
 
-# In[110]:
+# In[139]:
 
 def answer_six():
     cancerdf = answer_one()
@@ -188,18 +188,12 @@ def answer_six():
 answer_six()
 
 
-# In[112]:
-
-# Predicting the algorithm accuracy 
-knn.score(X_test, y_test)
-
-
 # ### Question 7
 # Using your knn classifier, predict the class labels for the test set `X_test`.
 # 
 # *This function should return a numpy array with shape `(143,)` and values either `0.0` or `1.0`.*
 
-# In[116]:
+# In[140]:
 
 def answer_seven():
     X_train, X_test, y_train, y_test = answer_four()
@@ -216,7 +210,7 @@ answer_seven()
 # 
 # *This function should return a float between 0 and 1*
 
-# In[ ]:
+# In[142]:
 
 def answer_eight():
     X_train, X_test, y_train, y_test = answer_four()
@@ -224,14 +218,15 @@ def answer_eight():
     
     # Your code here
     
-    return # Return your answer
+    return knn.score(X_test, y_test)
+answer_eight()
 
 
 # ### Optional plot
 # 
 # Try using the plotting function below to visualize the differet predicition scores between training and test sets, as well as malignant and benign cells.
 
-# In[ ]:
+# In[143]:
 
 def accuracy_plot():
     import matplotlib.pyplot as plt
@@ -279,12 +274,12 @@ def accuracy_plot():
     plt.title('Training and Test Accuracies for Malignant and Benign Cells', alpha=0.8)
 
 
-# In[ ]:
+# In[145]:
 
 # Uncomment the plotting function to see the visualization, 
 # Comment out the plotting function when submitting your notebook for grading
 
-#accuracy_plot() 
+accuracy_plot() 
 
 
 # In[ ]:
