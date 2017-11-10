@@ -188,14 +188,6 @@ def answer_six():
 answer_six()
 
 
-# In[111]:
-
-knn = answer_five()
-X_train, X_test, y_train, y_test = answer_four()
-
-knn.predict(X_test)
-
-
 # In[112]:
 
 # Predicting the algorithm accuracy 
@@ -207,7 +199,7 @@ knn.score(X_test, y_test)
 # 
 # *This function should return a numpy array with shape `(143,)` and values either `0.0` or `1.0`.*
 
-# In[ ]:
+# In[116]:
 
 def answer_seven():
     X_train, X_test, y_train, y_test = answer_four()
@@ -215,7 +207,8 @@ def answer_seven():
     
     # Your code here
     
-    return # Return your answer
+    return knn.predict(X_test)
+answer_seven()
 
 
 # ### Question 8
