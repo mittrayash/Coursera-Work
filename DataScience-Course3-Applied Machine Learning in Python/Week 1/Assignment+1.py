@@ -136,14 +136,13 @@ def answer_three():
 # * `y_train` *has shape* `(426,)`
 # * `y_test` *has shape* `(143,)`
 
-# In[ ]:
+# In[66]:
 
 from sklearn.model_selection import train_test_split
 
 def answer_four():
     X, y = answer_three()
-    
-    # Your code here
+    X_train, X_test, y_train, y_test = train_test_split(X, y)
     
     return X_train, X_test, y_train, y_test
 
