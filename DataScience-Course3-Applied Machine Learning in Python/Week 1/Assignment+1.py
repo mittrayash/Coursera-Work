@@ -115,13 +115,13 @@ answer_two()
 # * `X` *has shape* `(569, 30)`
 # * `y` *has shape* `(569,)`.
 
-# In[ ]:
+# In[56]:
 
 def answer_three():
     cancerdf = answer_one()
     
-    # Your code here
-    
+    X = cancerdf.iloc[:, :-1]
+    y = cancerdf.iloc[:, -1]
     return X, y
 
 
