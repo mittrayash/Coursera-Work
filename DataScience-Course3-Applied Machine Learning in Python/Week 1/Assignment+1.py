@@ -173,7 +173,7 @@ answer_five()
 # 
 # *This function should return a numpy array either `array([ 0.])` or `array([ 1.])`*
 
-# In[101]:
+# In[110]:
 
 def answer_six():
     cancerdf = answer_one()
@@ -183,8 +183,23 @@ def answer_six():
     # Here, we are doing the same. Also try to keep consistency. (x,) is always worse than (x, 1). Try using the latter.
     # Works everywhere
     
+    
     return knn.predict(means)
 answer_six()
+
+
+# In[111]:
+
+knn = answer_five()
+X_train, X_test, y_train, y_test = answer_four()
+
+knn.predict(X_test)
+
+
+# In[112]:
+
+# Predicting the algorithm accuracy 
+knn.score(X_test, y_test)
 
 
 # ### Question 7
