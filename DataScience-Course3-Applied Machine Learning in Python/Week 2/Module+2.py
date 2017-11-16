@@ -167,7 +167,7 @@ cancer = load_breast_cancer()
 
 # ### Classification
 
-# In[ ]:
+# In[26]:
 
 from adspy_shared_utilities import plot_two_class_knn
 
@@ -181,7 +181,7 @@ plot_two_class_knn(X_train, y_train, 11, 'uniform', X_test, y_test)
 
 # ### Regression
 
-# In[ ]:
+# In[27]:
 
 from sklearn.neighbors import KNeighborsRegressor
 
@@ -194,10 +194,11 @@ print('R-squared test score: {:.3f}'
      .format(knnreg.score(X_test, y_test)))
 
 
-# In[ ]:
+# In[28]:
 
 fig, subaxes = plt.subplots(1, 2, figsize=(8,4))
-X_predict_input = np.linspace(-3, 3, 50).reshape(-1,1)
+X_predict_input = np.linspace(-3, 3, 50).reshape(-1,1) # -1 means figure out yourself. Columns =1 but rows we ask python to find itself
+# linspace divided (-3, 3) into 51 equal parts => 50 flags in between them
 X_train, X_test, y_train, y_test = train_test_split(X_R1[0::5], y_R1[0::5], random_state = 0)
 
 for thisaxis, K in zip(subaxes, [1, 3]):
