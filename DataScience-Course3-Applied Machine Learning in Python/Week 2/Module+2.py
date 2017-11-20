@@ -9,7 +9,7 @@
 
 # # Applied Machine Learning: Module 2 (Supervised Learning, Part I)
 
-# In[2]:
+# In[1]:
 
 import datetime
 print(
@@ -17,20 +17,20 @@ print(
 )
 
 
-# In[3]:
+# In[2]:
 
 import time
 timestamp = time.mktime(time.strptime('2017-04-09 22:24:46', '%Y-%m-%d %H:%M:%S'))
 
 
-# In[4]:
+# In[3]:
 
 timestamp
 
 
 # ## Preamble and Review
 
-# In[5]:
+# In[4]:
 
 get_ipython().magic('matplotlib notebook')
 import numpy as np
@@ -87,19 +87,19 @@ print('Predicted fruit type for ', example_fruit, ' is ',
           target_names_fruits[knn.predict(example_fruit_scaled)[0]-1])
 
 
-# In[7]:
+# In[5]:
 
 fruits.head(10)
 
 
 # ## Datasets
 
-# In[18]:
+# In[6]:
 
 get_ipython().magic('pinfo make_friedman1')
 
 
-# In[10]:
+# In[7]:
 
 from sklearn.datasets import make_classification, make_blobs
 from matplotlib.colors import ListedColormap
@@ -167,7 +167,7 @@ cancer = load_breast_cancer()
 
 # ### Classification
 
-# In[26]:
+# In[8]:
 
 from adspy_shared_utilities import plot_two_class_knn
 
@@ -181,7 +181,7 @@ plot_two_class_knn(X_train, y_train, 11, 'uniform', X_test, y_test)
 
 # ### Regression
 
-# In[27]:
+# In[9]:
 
 from sklearn.neighbors import KNeighborsRegressor
 
@@ -194,7 +194,7 @@ print('R-squared test score: {:.3f}'
      .format(knnreg.score(X_test, y_test)))
 
 
-# In[28]:
+# In[10]:
 
 fig, subaxes = plt.subplots(1, 2, figsize=(8,4))
 X_predict_input = np.linspace(-3, 3, 50).reshape(-1,1) # -1 means figure out yourself. Columns =1 but rows we ask python to find itself
@@ -217,7 +217,7 @@ plt.tight_layout()
 
 # ### Regression model complexity as a function of K
 
-# In[ ]:
+# In[13]:
 
 # plot k-NN regression on sample dataset for different values of K
 fig, subaxes = plt.subplots(5, 1, figsize=(5,20))
@@ -245,22 +245,17 @@ for thisaxis, K in zip(subaxes, [1, 3, 7, 15, 55]):
 
 # ### Linear regression
 
-# In[ ]:
+# In[14]:
 
 from sklearn.linear_model import LinearRegression
 
-X_train, X_test, y_train, y_test = train_test_split(X_R1, y_R1,
-                                                   random_state = 0)
+X_train, X_test, y_train, y_test = train_test_split(X_R1, y_R1,random_state = 0)
 linreg = LinearRegression().fit(X_train, y_train)
 
-print('linear model coeff (w): {}'
-     .format(linreg.coef_))
-print('linear model intercept (b): {:.3f}'
-     .format(linreg.intercept_))
-print('R-squared score (training): {:.3f}'
-     .format(linreg.score(X_train, y_train)))
-print('R-squared score (test): {:.3f}'
-     .format(linreg.score(X_test, y_test)))
+print('linear model coeff (w): {}'.format(linreg.coef_))
+print('linear model intercept (b): {:.3f}'.format(linreg.intercept_))
+print('R-squared score (training): {:.3f}'.format(linreg.score(X_train, y_train)))
+print('R-squared score (test): {:.3f}'.format(linreg.score(X_test, y_test)))
 
 
 # ### Linear regression: example plot 
