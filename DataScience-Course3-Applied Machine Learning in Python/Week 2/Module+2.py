@@ -217,7 +217,7 @@ plt.tight_layout()
 
 # ### Regression model complexity as a function of K
 
-# In[13]:
+# In[11]:
 
 # plot k-NN regression on sample dataset for different values of K
 fig, subaxes = plt.subplots(5, 1, figsize=(5,20))
@@ -245,7 +245,7 @@ for thisaxis, K in zip(subaxes, [1, 3, 7, 15, 55]):
 
 # ### Linear regression
 
-# In[14]:
+# In[12]:
 
 from sklearn.linear_model import LinearRegression
 
@@ -260,7 +260,7 @@ print('R-squared score (test): {:.3f}'.format(linreg.score(X_test, y_test)))
 
 # ### Linear regression: example plot 
 
-# In[ ]:
+# In[13]:
 
 plt.figure(figsize=(5,4))
 plt.scatter(X_R1, y_R1, marker= 'o', s=50, alpha=0.8)
