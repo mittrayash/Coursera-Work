@@ -271,7 +271,7 @@ plt.ylabel('Target value (y)')
 plt.show()
 
 
-# In[ ]:
+# In[26]:
 
 X_train, X_test, y_train, y_test = train_test_split(X_crime, y_crime,
                                                    random_state = 0)
@@ -286,6 +286,17 @@ print('R-squared score (training): {:.3f}'
      .format(linreg.score(X_train, y_train)))
 print('R-squared score (test): {:.3f}'
      .format(linreg.score(X_test, y_test)))
+plt.figure()
+plt.plot(X_train, y_train, 'o')
+plt.legend()
+
+
+# In[22]:
+
+#plt.figure()
+#plt.scatter(X_train, y_train)
+len(X_train)
+#len(y_train)
 
 
 # ### Ridge regression
