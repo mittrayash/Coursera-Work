@@ -396,6 +396,11 @@ for e in sorted (list(zip(list(X_crime), linlasso.coef_)), key = lambda e: -abs(
         print('\t{}, {:.3f}'.format(e[0], e[1]))
 
 
+# In[26]:
+
+X_train_scaled
+
+
 # In[24]:
 
 list(zip(list(X_crime), linlasso.coef_))
@@ -418,7 +423,7 @@ for alpha in [0.5, 1, 2, 3, 5, 10, 20, 50]:
 
 # ### Polynomial regression
 
-# In[ ]:
+# In[27]:
 
 from sklearn.linear_model import LinearRegression
 from sklearn.linear_model import Ridge
@@ -756,6 +761,7 @@ print('Accuracy of RBF-kernel SVC on test set: {:.2f}'
 # In[ ]:
 
 from sklearn.preprocessing import MinMaxScaler
+# Minmax = (x - min) / (max - min)
 scaler = MinMaxScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
