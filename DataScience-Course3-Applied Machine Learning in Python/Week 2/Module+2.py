@@ -364,7 +364,7 @@ for this_alpha in [0, 1, 10, 20, 50, 100, 1000]:
 
 # ### Lasso regression
 
-# In[ ]:
+# In[19]:
 
 from sklearn.linear_model import Lasso
 from sklearn.preprocessing import MinMaxScaler
@@ -391,15 +391,19 @@ print('R-squared score (test): {:.3f}\n'
      .format(linlasso.score(X_test_scaled, y_test)))
 print('Features with non-zero weight (sorted by absolute magnitude):')
 
-for e in sorted (list(zip(list(X_crime), linlasso.coef_)),
-                key = lambda e: -abs(e[1])):
+for e in sorted (list(zip(list(X_crime), linlasso.coef_)), key = lambda e: -abs(e[1])):
     if e[1] != 0:
         print('\t{}, {:.3f}'.format(e[0], e[1]))
 
 
+# In[24]:
+
+list(zip(list(X_crime), linlasso.coef_))
+
+
 # #### Lasso regression with regularization parameter: alpha
 
-# In[ ]:
+# In[25]:
 
 print('Lasso regression: effect of alpha regularization\nparameter on number of features kept in final model\n')
 
