@@ -271,7 +271,7 @@ plt.ylabel('Target value (y)')
 plt.show()
 
 
-# In[15]:
+# In[14]:
 
 X_train, X_test, y_train, y_test = train_test_split(X_crime, y_crime,
                                                    random_state = 0)
@@ -288,7 +288,7 @@ print('R-squared score (test): {:.3f}'
      .format(linreg.score(X_test, y_test)))
 
 
-# In[16]:
+# In[15]:
 
 #plt.figure()
 #plt.scatter(X_train, y_train)
@@ -298,7 +298,7 @@ len(X_train)
 
 # ### Ridge regression
 
-# In[ ]:
+# In[16]:
 
 from sklearn.linear_model import Ridge
 X_train, X_test, y_train, y_test = train_test_split(X_crime, y_crime,
@@ -321,7 +321,7 @@ print('Number of non-zero features: {}'
 
 # #### Ridge regression with feature normalization
 
-# In[ ]:
+# In[17]:
 
 from sklearn.preprocessing import MinMaxScaler
 scaler = MinMaxScaler()
@@ -350,7 +350,7 @@ print('Number of non-zero features: {}'
 
 # #### Ridge regression with regularization parameter: alpha
 
-# In[ ]:
+# In[18]:
 
 print('Ridge regression: effect of alpha regularization parameter\n')
 for this_alpha in [0, 1, 10, 20, 50, 100, 1000]:
