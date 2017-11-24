@@ -482,7 +482,22 @@ print('(poly deg 2 + ridge) R-squared score (test): {:.3f}'
 
 # #### Logistic regression for binary classification on fruits dataset using height, width features (positive class: apple, negative class: others)
 
-# In[ ]:
+# In[37]:
+
+X_fruits_2d.head()
+
+
+# In[35]:
+
+X_fruits_2d[:5].as_matrix()
+
+
+# In[36]:
+
+y_fruits_2d.head()
+
+
+# In[38]:
 
 from sklearn.linear_model import LogisticRegression
 from adspy_shared_utilities import (
@@ -490,10 +505,7 @@ plot_class_regions_for_classifier_subplot)
 
 fig, subaxes = plt.subplots(1, 1, figsize=(7, 5))
 y_fruits_apple = y_fruits_2d == 1   # make into a binary problem: apples vs everything else
-X_train, X_test, y_train, y_test = (
-train_test_split(X_fruits_2d.as_matrix(),
-                y_fruits_apple.as_matrix(),
-                random_state = 0))
+X_train, X_test, y_train, y_test = (train_test_split(X_fruits_2d.as_matrix(), y_fruits_apple.as_matrix(), random_state = 0))
 
 clf = LogisticRegression(C=100).fit(X_train, y_train)
 plot_class_regions_for_classifier_subplot(clf, X_train, y_train, None,
@@ -519,19 +531,37 @@ print('Accuracy of Logistic regression classifier on test set: {:.2f}'
      .format(clf.score(X_test, y_test)))
 
 
+# In[47]:
+
+clf.predict([[h,w]])[0]
+
+
+# In[45]:
+
+['not an apple', 'an apple'][False]
+
+
+# In[48]:
+
+['not an apple', 'an apple'][True]
+
+
 # #### Logistic regression on simple synthetic dataset
 
-# In[ ]:
+# In[57]:
 
 from sklearn.linear_model import LogisticRegression
-from adspy_shared_utilities import (
-plot_class_regions_for_classifier_subplot)
+from adspy_shared_utilities import (plot_class_regions_for_classifier_subplot)
 
 
-X_train, X_test, y_train, y_test = train_test_split(X_C2, y_C2,
-                                                   random_state = 0)
+X_train, X_test, y_train, y_test = train_test_split(X_C2, y_C2, random_state = 0)
 
 fig, subaxes = plt.subplots(1, 1, figsize=(7, 5))
+#scaler = MinMaxScaler()
+#X_train = scaler.fit_transform(X_train)
+#X_test = scaler.fit_transform(X_test)
+
+# Note: After test inference: Scaling is reducing accuracy here!!! WHY??
 clf = LogisticRegression().fit(X_train, y_train)
 title = 'Logistic regression, simple synthetic dataset C = {:.3f}'.format(1.0)
 plot_class_regions_for_classifier_subplot(clf, X_train, y_train,
