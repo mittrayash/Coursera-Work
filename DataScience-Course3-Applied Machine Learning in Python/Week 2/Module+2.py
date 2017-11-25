@@ -271,7 +271,7 @@ plt.ylabel('Target value (y)')
 plt.show()
 
 
-# In[14]:
+# In[19]:
 
 X_train, X_test, y_train, y_test = train_test_split(X_crime, y_crime,
                                                    random_state = 0)
@@ -288,7 +288,7 @@ print('R-squared score (test): {:.3f}'
      .format(linreg.score(X_test, y_test)))
 
 
-# In[15]:
+# In[20]:
 
 #plt.figure()
 #plt.scatter(X_train, y_train)
@@ -298,7 +298,7 @@ len(X_train)
 
 # ### Ridge regression
 
-# In[16]:
+# In[21]:
 
 from sklearn.linear_model import Ridge
 X_train, X_test, y_train, y_test = train_test_split(X_crime, y_crime,
@@ -321,7 +321,7 @@ print('Number of non-zero features: {}'
 
 # #### Ridge regression with feature normalization
 
-# In[17]:
+# In[22]:
 
 from sklearn.preprocessing import MinMaxScaler
 scaler = MinMaxScaler()
@@ -350,7 +350,7 @@ print('Number of non-zero features: {}'
 
 # #### Ridge regression with regularization parameter: alpha
 
-# In[18]:
+# In[23]:
 
 print('Ridge regression: effect of alpha regularization parameter\n')
 for this_alpha in [0, 1, 10, 20, 50, 100, 1000]:
@@ -364,7 +364,7 @@ for this_alpha in [0, 1, 10, 20, 50, 100, 1000]:
 
 # ### Lasso regression
 
-# In[19]:
+# In[24]:
 
 from sklearn.linear_model import Lasso
 from sklearn.preprocessing import MinMaxScaler
@@ -396,19 +396,19 @@ for e in sorted (list(zip(list(X_crime), linlasso.coef_)), key = lambda e: -abs(
         print('\t{}, {:.3f}'.format(e[0], e[1]))
 
 
-# In[26]:
+# In[25]:
 
 X_train_scaled
 
 
-# In[24]:
+# In[26]:
 
 list(zip(list(X_crime), linlasso.coef_))
 
 
 # #### Lasso regression with regularization parameter: alpha
 
-# In[25]:
+# In[27]:
 
 print('Lasso regression: effect of alpha regularization\nparameter on number of features kept in final model\n')
 
@@ -423,7 +423,7 @@ for alpha in [0.5, 1, 2, 3, 5, 10, 20, 50]:
 
 # ### Polynomial regression
 
-# In[27]:
+# In[28]:
 
 from sklearn.linear_model import LinearRegression
 from sklearn.linear_model import Ridge
@@ -482,22 +482,22 @@ print('(poly deg 2 + ridge) R-squared score (test): {:.3f}'
 
 # #### Logistic regression for binary classification on fruits dataset using height, width features (positive class: apple, negative class: others)
 
-# In[37]:
+# In[29]:
 
 X_fruits_2d.head()
 
 
-# In[35]:
+# In[30]:
 
 X_fruits_2d[:5].as_matrix()
 
 
-# In[36]:
+# In[31]:
 
 y_fruits_2d.head()
 
 
-# In[38]:
+# In[32]:
 
 from sklearn.linear_model import LogisticRegression
 from adspy_shared_utilities import (
@@ -531,24 +531,24 @@ print('Accuracy of Logistic regression classifier on test set: {:.2f}'
      .format(clf.score(X_test, y_test)))
 
 
-# In[47]:
+# In[33]:
 
 clf.predict([[h,w]])[0]
 
 
-# In[45]:
+# In[34]:
 
 ['not an apple', 'an apple'][False]
 
 
-# In[48]:
+# In[35]:
 
 ['not an apple', 'an apple'][True]
 
 
 # #### Logistic regression on simple synthetic dataset
 
-# In[57]:
+# In[36]:
 
 from sklearn.linear_model import LogisticRegression
 from adspy_shared_utilities import (plot_class_regions_for_classifier_subplot)
@@ -576,7 +576,12 @@ print('Accuracy of Logistic regression classifier on test set: {:.2f}'
 
 # #### Logistic regression regularization: C parameter
 
-# In[ ]:
+# In[40]:
+
+get_ipython().magic('pinfo LogisticRegression')
+
+
+# In[37]:
 
 X_train, X_test, y_train, y_test = (
 train_test_split(X_fruits_2d.as_matrix(),
