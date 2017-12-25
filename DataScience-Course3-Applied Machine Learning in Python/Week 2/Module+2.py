@@ -487,17 +487,17 @@ print('(poly deg 2 + ridge) R-squared score (test): {:.3f}'
 X_fruits_2d.head()
 
 
-# In[30]:
+# In[14]:
 
 X_fruits_2d[:5].as_matrix()
 
 
-# In[31]:
+# In[15]:
 
 y_fruits_2d.head()
 
 
-# In[32]:
+# In[16]:
 
 from sklearn.linear_model import LogisticRegression
 from adspy_shared_utilities import (
@@ -531,24 +531,24 @@ print('Accuracy of Logistic regression classifier on test set: {:.2f}'
      .format(clf.score(X_test, y_test)))
 
 
-# In[33]:
+# In[18]:
 
 clf.predict([[h,w]])[0]
 
 
-# In[34]:
+# In[19]:
 
 ['not an apple', 'an apple'][False]
 
 
-# In[35]:
+# In[20]:
 
 ['not an apple', 'an apple'][True]
 
 
 # #### Logistic regression on simple synthetic dataset
 
-# In[36]:
+# In[21]:
 
 from sklearn.linear_model import LogisticRegression
 from adspy_shared_utilities import (plot_class_regions_for_classifier_subplot)
@@ -576,12 +576,12 @@ print('Accuracy of Logistic regression classifier on test set: {:.2f}'
 
 # #### Logistic regression regularization: C parameter
 
-# In[40]:
+# In[22]:
 
 get_ipython().magic('pinfo LogisticRegression')
 
 
-# In[37]:
+# In[23]:
 
 X_train, X_test, y_train, y_test = (
 train_test_split(X_fruits_2d.as_matrix(),
@@ -602,7 +602,7 @@ plt.tight_layout()
 
 # #### Application to real dataset
 
-# In[ ]:
+# In[24]:
 
 from sklearn.linear_model import LogisticRegression
 
@@ -620,7 +620,7 @@ print('Accuracy of Logistic regression classifier on test set: {:.2f}'
 
 # #### Linear Support Vector Machine
 
-# In[ ]:
+# In[25]:
 
 from sklearn.svm import SVC
 from adspy_shared_utilities import plot_class_regions_for_classifier_subplot
@@ -637,7 +637,7 @@ plot_class_regions_for_classifier_subplot(clf, X_train, y_train, None, None, tit
 
 # #### Linear Support Vector Machine: C parameter
 
-# In[ ]:
+# In[26]:
 
 from sklearn.svm import LinearSVC
 from adspy_shared_utilities import plot_class_regions_for_classifier
@@ -655,7 +655,7 @@ plt.tight_layout()
 
 # #### Application to real dataset
 
-# In[ ]:
+# In[27]:
 
 from sklearn.svm import LinearSVC
 X_train, X_test, y_train, y_test = train_test_split(X_cancer, y_cancer, random_state = 0)
@@ -672,7 +672,7 @@ print('Accuracy of Linear SVC classifier on test set: {:.2f}'
 
 # #### LinearSVC with M classes generates M one vs rest classifiers.
 
-# In[ ]:
+# In[28]:
 
 from sklearn.svm import LinearSVC
 
@@ -685,7 +685,7 @@ print('Intercepts:\n', clf.intercept_)
 
 # #### Multi-class results on the fruit dataset
 
-# In[ ]:
+# In[29]:
 
 plt.figure(figsize=(6,6))
 colors = ['r', 'g', 'b', 'y']
