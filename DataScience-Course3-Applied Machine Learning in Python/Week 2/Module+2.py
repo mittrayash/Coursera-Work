@@ -271,7 +271,7 @@ plt.ylabel('Target value (y)')
 plt.show()
 
 
-# In[19]:
+# In[20]:
 
 X_train, X_test, y_train, y_test = train_test_split(X_crime, y_crime,
                                                    random_state = 0)
@@ -288,7 +288,7 @@ print('R-squared score (test): {:.3f}'
      .format(linreg.score(X_test, y_test)))
 
 
-# In[20]:
+# In[21]:
 
 #plt.figure()
 #plt.scatter(X_train, y_train)
@@ -298,7 +298,7 @@ len(X_train)
 
 # ### Ridge regression
 
-# In[21]:
+# In[22]:
 
 from sklearn.linear_model import Ridge
 X_train, X_test, y_train, y_test = train_test_split(X_crime, y_crime,
@@ -321,7 +321,7 @@ print('Number of non-zero features: {}'
 
 # #### Ridge regression with feature normalization
 
-# In[22]:
+# In[23]:
 
 from sklearn.preprocessing import MinMaxScaler
 scaler = MinMaxScaler()
@@ -350,7 +350,7 @@ print('Number of non-zero features: {}'
 
 # #### Ridge regression with regularization parameter: alpha
 
-# In[23]:
+# In[24]:
 
 print('Ridge regression: effect of alpha regularization parameter\n')
 for this_alpha in [0, 1, 10, 20, 50, 100, 1000]:
@@ -364,7 +364,7 @@ for this_alpha in [0, 1, 10, 20, 50, 100, 1000]:
 
 # ### Lasso regression
 
-# In[24]:
+# In[25]:
 
 from sklearn.linear_model import Lasso
 from sklearn.preprocessing import MinMaxScaler
@@ -396,19 +396,19 @@ for e in sorted (list(zip(list(X_crime), linlasso.coef_)), key = lambda e: -abs(
         print('\t{}, {:.3f}'.format(e[0], e[1]))
 
 
-# In[25]:
+# In[26]:
 
 X_train_scaled
 
 
-# In[26]:
+# In[27]:
 
 list(zip(list(X_crime), linlasso.coef_))
 
 
 # #### Lasso regression with regularization parameter: alpha
 
-# In[27]:
+# In[28]:
 
 print('Lasso regression: effect of alpha regularization\nparameter on number of features kept in final model\n')
 
@@ -423,7 +423,7 @@ for alpha in [0.5, 1, 2, 3, 5, 10, 20, 50]:
 
 # ### Polynomial regression
 
-# In[28]:
+# In[31]:
 
 from sklearn.linear_model import LinearRegression
 from sklearn.linear_model import Ridge
