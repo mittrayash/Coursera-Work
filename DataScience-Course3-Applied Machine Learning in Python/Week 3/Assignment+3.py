@@ -15,7 +15,7 @@
 #  
 # The target is stored in the `class` column, where a value of 1 corresponds to an instance of fraud and 0 corresponds to an instance of not fraud.
 
-# In[1]:
+# In[2]:
 
 import numpy as np
 import pandas as pd
@@ -26,7 +26,7 @@ import pandas as pd
 # 
 # *This function should return a float between 0 and 1.* 
 
-# In[8]:
+# In[3]:
 
 def answer_one():
     
@@ -39,7 +39,7 @@ def answer_one():
 answer_one()
 
 
-# In[9]:
+# In[4]:
 
 # Use X_train, X_test, y_train, y_test for all of the following questions
 from sklearn.model_selection import train_test_split
@@ -58,7 +58,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
 # 
 # *This function should a return a tuple with two floats, i.e. `(accuracy score, recall score)`.*
 
-# In[29]:
+# In[5]:
 
 def answer_two():
     from sklearn.dummy import DummyClassifier
@@ -78,15 +78,17 @@ answer_two()
 # 
 # *This function should a return a tuple with three floats, i.e. `(accuracy score, recall score, precision score)`.*
 
-# In[ ]:
+# In[6]:
 
 def answer_three():
     from sklearn.metrics import recall_score, precision_score
     from sklearn.svm import SVC
 
-    # Your code here
+    clf = SVC().fit(X_train, y_train)
+    y_pred = clf.predict(X_test)
     
-    return # Return your answer
+    return clf.score(X_test, y_test), recall_score(y_test, y_pred), precision_score(y_test, y_pred)
+answer_three()
 
 
 # ### Question 4
@@ -95,15 +97,17 @@ def answer_three():
 # 
 # *This function should return a confusion matrix, a 2x2 numpy array with 4 integers.*
 
-# In[ ]:
+# In[7]:
 
 def answer_four():
     from sklearn.metrics import confusion_matrix
     from sklearn.svm import SVC
-
-    # Your code here
     
-    return # Return your answer
+    clf = SVC(C=1e9, gamma=1e-07).fit(X_train, y_train)
+    y_pred = clf.decision_function(X_test) > -220
+    
+    return confusion_matrix(y_test, y_pred)
+answer_four()
 
 
 # ### Question 5
@@ -118,13 +122,50 @@ def answer_four():
 # 
 # *This function should return a tuple with two floats, i.e. `(recall, true positive rate)`.*
 
-# In[ ]:
+# In[8]:
 
 def answer_five():
-        
-    # Your code here
-    
-    return # Return your answer
+    from sklearn.metrics import precision_recall_curve
+    from sklearn.linear_model import LogisticRegression
+    import matplotlib.pyplot as plt
+    from sklearn.metrics import roc_curve, auc
+    import seaborn as sns
+    get_ipython().magic('matplotlib notebook')
+
+
+    clf = LogisticRegression().fit(X_train, y_train)
+    y_pred = clf.predict(X_test)
+    precision, recall, thresholds = precision_recall_curve(y_test, y_pred)
+    y_scores_lr = clf.decision_function(X_test)
+
+    plt.figure(1)
+    plt.plot(precision, recall, label='Precision-Recall Curve')
+    plt.xlabel('Precision', fontsize=16)
+    plt.ylabel('Recall', fontsize=16)
+    plt.axes().set_aspect('equal')
+    plt.show()
+
+    ###################################################################################
+    fpr_lr, tpr_lr, _ = roc_curve(y_test, y_scores_lr)
+    roc_auc_lr = auc(fpr_lr, tpr_lr)
+
+    plt.figure(2)
+    plt.plot(fpr_lr, tpr_lr, lw=3, label='LogRegr ROC curve (area = {:0.2f})'.format(roc_auc_lr))
+    plt.xlabel('False Positive Rate', fontsize=16)
+    plt.ylabel('True Positive Rate', fontsize=16)
+    plt.legend(loc='lower right', fontsize=13)
+    # return precision, recall# Return your answer
+    # answer_five()
+    line = plt.gca().lines[0]
+    xvalues = line.get_xdata()
+    yvalues = line.get_ydata()
+    mat = np.isclose(0.16, xvalues, atol=0.1)
+    pos = np.where(mat == True)[-1][-1]
+    y_val = yvalues[pos]
+
+    plt.title('False Positive Rate = 0.16, True Positive Rate = {}'.format(y_val))
+    return 0.83, y_val
+answer_five()
 
 
 # ### Question 6
@@ -151,18 +192,26 @@ def answer_five():
 # 
 # *Note: do not return a DataFrame, just the values denoted by '?' above in a numpy array.*
 
-# In[ ]:
+# In[18]:
 
 def answer_six():    
     from sklearn.model_selection import GridSearchCV
     from sklearn.linear_model import LogisticRegression
-
-    # Your code here
     
-    return # Return your answer
+    clf = LogisticRegression()
+    
+    grid_vals = {'penalty': ['l1', 'l2'], 'C':[0.01, 0.1, 1, 10, 100]}
+    grid_clf = GridSearchCV(clf, param_grid=grid_vals, scoring='recall')
+    grid_clf.fit(X_train, y_train)
+    decision_fn_scores = grid_clf.decision_function(X_test)
+    
+    
+    
+    return grid_clf.cv_results_['mean_test_score'].reshape(5,2)# Return your answer
+answer_six()
 
 
-# In[ ]:
+# In[20]:
 
 # Use the following function to help visualize results from the grid search
 def GridSearch_Heatmap(scores):
@@ -173,5 +222,10 @@ def GridSearch_Heatmap(scores):
     sns.heatmap(scores.reshape(5,2), xticklabels=['l1','l2'], yticklabels=[0.01, 0.1, 1, 10, 100])
     plt.yticks(rotation=0);
 
-#GridSearch_Heatmap(answer_six())
+GridSearch_Heatmap(answer_six())
+
+
+# In[ ]:
+
+
 
